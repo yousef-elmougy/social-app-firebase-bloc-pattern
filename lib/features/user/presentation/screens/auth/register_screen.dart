@@ -78,9 +78,7 @@ class RegisterScreen extends StatelessWidget {
                           ? const Center(child: CircularProgressIndicator())
                           : CustomButton(
                               title: '${context.tr?.register}',
-                              onTap: ()  {
-                                authCubit.register(context);
-                              },
+                              onTap: ()  => authCubit.register(context),
                             ),
                       const VerticalSpace(1),
                       CustomTextBottom(

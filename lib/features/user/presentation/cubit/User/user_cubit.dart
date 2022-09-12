@@ -35,11 +35,11 @@ class UserCubit extends Cubit<UserState> {
             phone: phoneController.text.trim(),
             name: nameController.text.trim(),
             email: userModel?.email,
-            cover: cover,
-            image: image)
+            cover: cover ?? userModel!.cover,
+            image: image ?? userModel!.image)
         .then((value) => value.fold(
-                (failure) => emit(
-                    UpdateUserError(Methods().mapFailureToMsg(failure))),
+                (failure) =>
+                    emit(UpdateUserError(Methods().mapFailureToMsg(failure))),
                 (value) {
               emit(UpdateUserLoaded());
               FocusScope.of(context).unfocus();
@@ -49,12 +49,14 @@ class UserCubit extends Cubit<UserState> {
 
   /// GET USER
 
-  void getUser() {
+  Future<void> getUser() async {
     emit(GetUserLoading());
     userRepository
         .getUser(AppStrings.uId)
-        .listen((event) => userModel = UserModel.fromJson(event.data()));
-    emit(GetUserLoaded());
+        .listen((event) {
+          userModel = UserModel.fromJson(event.data());
+          emit(GetUserLoaded());
+        });
   }
 
   /// GET ALL USERS
@@ -63,19 +65,10 @@ class UserCubit extends Cubit<UserState> {
 
   void getAllUsers() {
     emit(GetAllUsersLoading());
-    userRepository.getAllUsers().listen((event) =>
-        users = event.docs.map((e) => UserModel.fromJson(e.data())).toList());
-    emit(GetAllUsersLoaded());
-  }
-
-  /// SIGN OUT
-
-  Future<void> signOut(context) async {
-    emit(SignOutLoading());
-    await FirebaseAuth.instance
-        .signOut()
-        .then((value) => emit(SignOutLoaded()))
-        .catchError((error) => emit(SignOutError(error)));
+    userRepository.getAllUsers().listen((event) {
+      users = event.docs.map((e) => UserModel.fromJson(e.data())).toList();
+      emit(GetAllUsersLoaded());
+    });
   }
 
   /// PICK CIRCLE PROFILE IMAGE
@@ -89,6 +82,7 @@ class UserCubit extends Cubit<UserState> {
       uploadCircleImage();
     }
   }
+
   /// UPLOAD CIRCLE PROFILE IMAGE
 
   String? image;
@@ -99,7 +93,6 @@ class UserCubit extends Cubit<UserState> {
         childName: 'users', file: imageFile, isPost: false);
     emit(UploadCircleImage());
   }
-
 
   /// PICK COVER PROFILE IMAGE
 

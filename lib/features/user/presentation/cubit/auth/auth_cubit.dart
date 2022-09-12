@@ -24,8 +24,8 @@ class AuthCubit extends Cubit<AuthState> {
               email: registerEmailController.text.trim(),
               password: registerPasswordController.text.trim())
           .then((value) => value.fold(
-                  (failure) => emit(
-                      RegisterError(Methods().mapFailureToMsg(failure))),
+                  (failure) =>
+                      emit(RegisterError(Methods().mapFailureToMsg(failure))),
                   (value) {
                 BlocProvider.of<UserCubit>(context).createUser(
                     name: registerNameController.text.trim(),
@@ -33,8 +33,7 @@ class AuthCubit extends Cubit<AuthState> {
                     phone: registerPhoneController.text.trim(),
                     uId: value.user?.uid);
                 emit(RegisterLoaded());
-                // RestartWidget.restartApp(context);
-                  }));
+              }));
     }
   }
 
@@ -52,15 +51,20 @@ class AuthCubit extends Cubit<AuthState> {
               email: loginEmailController.text.trim(),
               password: loginPasswordController.text.trim())
           .then((value) => value.fold(
-                  (failure) =>
-                      emit(LoginError(Methods().mapFailureToMsg(failure))),
-                  (value) {
-                emit(LoginLoaded());
-                  }));
+              (failure) => emit(LoginError(Methods().mapFailureToMsg(failure))),
+              (value) => emit(LoginLoaded())));
     }
   }
 
+  /// SIGN OUT
 
+  Future<void> signOut(context) async {
+    emit(SignOutLoading());
+    await FirebaseAuth.instance
+        .signOut()
+        .then((value) => emit(SignOutLoaded()))
+        .catchError((error) => emit(SignOutError(error)));
+  }
 
   /// PASSWORD VISIBILITY
   bool isVisible = false;

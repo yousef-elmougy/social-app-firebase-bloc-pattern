@@ -42,16 +42,6 @@ class GetAllUsersError extends UserState{
 
   GetAllUsersError(this.error);
 }
-/// SIGN OUT
-class SignOutLoading extends UserState{}
-class SignOutLoaded extends UserState{
-
-}
-class SignOutError extends UserState{
-  final String error;
-
-  SignOutError(this.error);
-}
 
 class PickedCover extends UserState {}
 class PickedCircle extends UserState {}

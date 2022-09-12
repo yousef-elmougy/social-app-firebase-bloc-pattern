@@ -7,17 +7,15 @@ class AuthStateChangesScreen extends StatelessWidget {
   final Widget authWidget;
 
   @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.active) {
-          return snapshot.hasData ? const LayoutScreen() : authWidget;
-        } else {
-          return const Scaffold(
-              body: Center(child: CircularProgressIndicator()));
-        }
-      },
-    );
-  }
+  Widget build(BuildContext context) => StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            return snapshot.hasData ? const LayoutScreen() : authWidget;
+          } else {
+            return const Scaffold(
+                body: Center(child: CircularProgressIndicator()));
+          }
+        },
+      );
 }

@@ -60,9 +60,7 @@ class LoginScreen extends StatelessWidget {
                           ? const Center(child: CircularProgressIndicator())
                           : CustomButton(
                               title: '${context.tr?.login}',
-                              onTap: () {
-                                authCubit.login(context);
-                              },
+                              onTap: () => authCubit.login(context),
 
                             ),
                       const VerticalSpace(2),

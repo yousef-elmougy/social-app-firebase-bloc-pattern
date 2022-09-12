@@ -29,13 +29,15 @@ class ChatCubit extends Cubit<ChatState> {
   /// GET MESSAGE
   List<ChatModel> messages = [];
 
-  void getMessage({String? receiverId}) {
+  Future<void> getMessage({String? receiverId}) async {
     emit(GetMessageLoading());
     chatRepository
         .getMessage(senderId: AppStrings.uId, receiverId: receiverId)
-        .listen((event) => messages =
-            event.docs.map((e) => ChatModel.fromJson(e.data())).toList());
-    emit(GetMessageLoaded());
+        .listen((event) {
+          messages =
+            event.docs.map((e) => ChatModel.fromJson(e.data())).toList();
+          emit(GetMessageLoaded());
+        });
   }
 
   /// PICK POST IMAGE

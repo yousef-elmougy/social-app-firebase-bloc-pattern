@@ -35,11 +35,13 @@ class PostCubit extends Cubit<PostState> {
   /// Get NEW POST
   List<PostModel> postList = [];
 
-  void getNewPost() {
+void  getNewPost()  {
     emit(GetPostLoading());
-    newPostRepository.getPost().listen((event) => postList =
-        event.docs.map((e) => PostModel.fromJson(e.data())).toList());
-    emit(GetPostLoaded());
+    newPostRepository.getPost().listen((event) {
+      postList =
+        event.docs.map((e) => PostModel.fromJson(e.data())).toList();
+      emit(GetPostLoaded());
+    });
   }
 
   /// LIKE

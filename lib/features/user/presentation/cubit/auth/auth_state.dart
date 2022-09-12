@@ -25,16 +25,15 @@ class LoginError extends AuthState {
   LoginError(this.error);
 }
 
-class OnAuthChangeLoading extends AuthState {}
-class OnAuthChangeLoaded extends AuthState {
-  final User? event;
+/// SIGN OUT
+class SignOutLoading extends AuthState{}
+class SignOutLoaded extends AuthState{
 
-  OnAuthChangeLoaded(this.event);
 }
-class OnAuthChangeError extends AuthState {
+class SignOutError extends AuthState{
   final String error;
 
-  OnAuthChangeError(this.error);
+  SignOutError(this.error);
 }
 
 

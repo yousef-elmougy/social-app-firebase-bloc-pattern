@@ -6,6 +6,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
+    final authCubit = BlocProvider.of<AuthCubit>(context);
     return BlocBuilder<UserCubit, UserState>(
         builder: (context, state) => state is GetUserLoading
             ? const Center(child: CircularProgressIndicator())
@@ -69,10 +70,7 @@ class SettingsScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: OutlinedButton(
-                        onPressed: () {
-                          userCubit
-                            .signOut(context);
-                        },
+                        onPressed: () => authCubit.signOut(context),
                         child: const Text('Sign Out'),
                       ),
                     ),
