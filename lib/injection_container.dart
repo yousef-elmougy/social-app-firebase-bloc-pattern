@@ -9,13 +9,13 @@ Future<void> init() async {
   // BLOC
   sl.registerFactory(() => ThemeCubit(sharedPreferences: sl()));
   sl.registerFactory(() => LocaleCubit(localeRepository: sl()));
-  sl.registerLazySingleton(() => ChatCubit(chatRepository: sl())..getMessage());
+  sl.registerFactory(() => ChatCubit(chatRepository: sl())..getMessage());
   sl.registerFactory(() => LayoutCubit());
   sl.registerFactory(() => AuthCubit(authRepository: sl()));
-  sl.registerLazySingleton(() => UserCubit(userRepository: sl())
+  sl.registerFactory(() => UserCubit(userRepository: sl())
     ..getUser()
     ..getAllUsers());
-  sl.registerLazySingleton(() => PostCubit(newPostRepository: sl())
+  sl.registerFactory(() => PostCubit(newPostRepository: sl())
     ..getNewPost()
   );
 
