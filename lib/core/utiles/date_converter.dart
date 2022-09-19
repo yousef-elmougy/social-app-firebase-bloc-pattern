@@ -7,7 +7,7 @@ import '../error/failures.dart';
 ///
 /// Or vise vers ca
 class DateConverter {
- static Either<Failure, DateTime> eitherStringToDateTime(String strDate) {
+  Either<Failure, DateTime> eitherStringToDateTime(String strDate) {
     try {
       final DateTime dateTime = DateTime.parse(strDate);
       final int year = dateTime.year;
@@ -21,7 +21,7 @@ class DateConverter {
     }
   }
 
-static  DateTime stringToDateTime(String strDate) {
+  DateTime stringToDateTime(String strDate) {
     try {
       final DateTime dateTime = DateTime.parse(strDate);
       final int year = dateTime.year;
@@ -41,7 +41,7 @@ static  DateTime stringToDateTime(String strDate) {
   /// Convert DateTime to string
   ///
   /// Exp: ven. 21 juin
-  static String dateTimeToIsoString(DateTime dateTime) {
+   String dateTimeToIsoString(DateTime dateTime) {
     initializeDateFormatting();
     final DateFormat formatter = DateFormat('EEE dd MMM', 'en');
     final String formatted = formatter.format(dateTime);
@@ -51,7 +51,7 @@ static  DateTime stringToDateTime(String strDate) {
   /// Convert DateTime to string time
   ///
   /// Exp: 02h45
-  static String timeToIsoString(DateTime dateTime) {
+   String timeToIsoString(DateTime dateTime) {
     initializeDateFormatting();
     final DateFormat formatter = DateFormat('HH\'h\'mm', 'en');
     final String formatted = formatter.format(dateTime);
@@ -61,7 +61,7 @@ static  DateTime stringToDateTime(String strDate) {
   /// Convert DateTime to string for date with time
   ///
   /// ven. 21 juin 02h45
-  static String fullDateToIsoString(DateTime dateTime) {
+   String fullDateToIsoString(DateTime dateTime) {
     initializeDateFormatting();
     final DateFormat formatter = DateFormat('EEE dd MMM HH\'h\'mm', 'en');
     final String formatted = formatter.format(dateTime);
@@ -71,7 +71,7 @@ static  DateTime stringToDateTime(String strDate) {
   /// Convert string date to string without time
   ///
   /// Exp: ven. 21 juin
-static  String isoToStringDate(String strDate) {
+  String isoToStringDate(String strDate) {
     initializeDateFormatting();
     final DateFormat formatter = DateFormat('EEE dd MMM', 'en');
     final DateTime dateTime = DateTime.parse(strDate);
@@ -82,7 +82,7 @@ static  String isoToStringDate(String strDate) {
   /// Convert string date to string time
   ///
   /// Exp: 02:45
-  static String isoToStringTime(String strDate) {
+   String isoToStringTime(String strDate) {
     initializeDateFormatting();
     final DateFormat formatter = DateFormat('HH:mm', 'en');
     final DateTime dateTime = DateTime.parse(strDate);
@@ -93,7 +93,7 @@ static  String isoToStringDate(String strDate) {
   /// Convert DateTime to date
   ///
   /// Exp: 21/06/2004
-  static String dateToSlashString(DateTime date) {
+   String dateToSlashString(DateTime date) {
     initializeDateFormatting();
     final DateFormat formatter = DateFormat('dd/MM/y');
     final String formatted = formatter.format(date);

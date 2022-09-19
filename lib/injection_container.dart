@@ -1,5 +1,4 @@
 import 'features/chat/presentation/cubit/chat_cubit.dart';
-
 import 'injection_exports.dart';
 
 GetIt sl = GetIt.instance;
